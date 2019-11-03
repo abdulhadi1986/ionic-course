@@ -9,6 +9,58 @@
   </ion-toolbar>
 </ion-header>
 <ion-content text-center padding>
-  <p>{{ selectedPlace.description}}</p>
-  <ion-button color="primary" (click)="onBookPlace()"> Book!</ion-button>
+  <form #bookPlaceForm ="ngForm" (ngSubmit)="onBookingPlace(bookPlaceForm)">
+    <ion-grid>
+      <ion-row>
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-item>
+            <ion-label position="floating">First name</ion-label>
+            <ion-input type="text" ngModel name="firstName" required></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-item>
+            <ion-label position="floating">No. of Guests</ion-label>
+            <ion-select [ngModel]="'2'" name="guestsNo">
+              <ion-select-option value="1">1</ion-select-option>
+              <ion-select-option value="2">2</ion-select-option>
+              <ion-select-option value="2">3</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size-sm="3" offset-sm="3">
+          <ion-item>
+            <ion-label position="floating">Book From:</ion-label>
+            <ion-datetime 
+              display-format="MMM DD YYYY" 
+              picker-format="YY MMM DD" 
+              [min]="selectedPlace.dateFrom.toISOString()"
+              [max]="selectedPlace.dateTo.toISOString()"
+              [ngModel]="startDate"
+              name="dateFrom"
+              required
+              #dateFromCtrl="ngModel"></ion-datetime>
+          </ion-item>
+        </ion-col>
+        <ion-col size-sm="3" offset-sm="3">
+          <ion-item>
+            <ion-label position="floating">Book To:</ion-label>
+            <ion-datetime 
+              display-format="MMM DD YYYY" 
+              picker-format="YY MMM DD" 
+              [min]="dateFromCtrl.value"
+              [max]="selectedPlace.dateTo.toISOString()"
+              ngModel
+              name="dateTo"
+              required></ion-datetime>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <ion-button type="submit" color="primary" [disabled]="!bookPlaceForm.valid || !areDatesValid()" expand="block"> Book!</ion-button>
+  </form>    
 </ion-content>

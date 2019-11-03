@@ -16,9 +16,9 @@ export class OffersPage implements OnInit {
   ngOnInit() {
     this.offers = this.placeService.getAllPlaces();
   }
-  onEditOption(placeId: string, slidingItem: IonItemSliding) {
+  onEditOption(offerId: string, slidingItem: IonItemSliding) {
     slidingItem.close();
     console.log('sliding item option clicked ');
-    //this.router.navigate(['places', 'tabs', 'offers', 'edit', placeId]);
+    this.router.navigate(['/', 'places', 'tabs', 'offers', 'edit', offerId]);
     }
 }

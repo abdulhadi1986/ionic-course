@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { logging } from 'protractor';
+import { NgForm } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private  _userIsAuthenticated = false;
+  private  _userIsAuthenticated = true;
 
     constructor() { }
 
